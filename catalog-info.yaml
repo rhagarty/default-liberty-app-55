@@ -1,0 +1,53 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: default-liberty-app-55-service
+  description: 'The Liberty service for default-liberty-app-55 (Creates an Open Liberty getting started app)'
+  annotations:
+    argocd/app-name: default-liberty-app-55-dev
+    backstage.io/kubernetes-id: default-liberty-app-55
+    backstage.io/kubernetes-namespace: default
+    backstage.io/techdocs-ref: dir:.
+    github.com/project-slug: rhagarty/default-liberty-app-55
+    janus-idp.io/tekton : default-liberty-app-55
+    argocd/app-selector: default-liberty-app-55-dev
+    openliberty.io/app-kind: OpenLibertyApplication
+  labels:
+    backstage.io/kubernetes-id: default-liberty-app-55
+  tags:
+    - java
+    - liberty
+    - maven
+    - example
+  links:
+    - url: https://console-openshift-console.apps.ocp.ibm.edu/k8s/ns/default/deployments/default-liberty-app-55
+      title: Deployment
+      icon: web
+    - url: https://openliberty.io/docs/latest/overview.html
+      title: Open Liberty Docs
+      icon: web
+spec:
+  type: service
+  lifecycle: production
+  owner: "user:default/user1"
+  providesApis:
+    - default-liberty-app-55-api
+---
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: default-liberty-app-55-api
+  description: API surface exposed by the Liberty service
+  links:
+    - url: https://default-liberty-app-55-default.apps.ocp.ibm.edu/q/swagger-ui
+      title: Swagger UI
+      icon: web
+    - url: https://github.com/rhagarty/default-liberty-app-55/-/blob/main/src/main/resources/META-INF/openapi.yaml
+      title: API Spec
+      icon: code
+spec:
+  type: openapi
+  lifecycle: production
+  owner: "user:default/user1"
+  definition:
+    $text: ./src/main/resources/META-INF/openapi.yaml
